@@ -72,9 +72,9 @@ while True:
     res_msg = res['choices'][0]['message']['content']
 
     print("\033[2K\033[G", end='')
-    out('--- AI --- ({}ms)'.format(math.ceil((end_time - start_time) * 1000)), Color.YELLOW)
+    out('--- ChatGPT --- ({}ms)'.format(math.ceil((end_time - start_time) * 1000)), Color.YELLOW)
     out(res_msg, Color.YELLOW)
-    log('AI > ' + res_msg)
+    log('ChatGPT > ' + res_msg)
 
     messages.append(
         {
