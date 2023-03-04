@@ -1,9 +1,10 @@
 import json
 import math
 import os
+import readline
 import sys
 import time
-import readline
+from datetime import datetime
 
 import openai
 from dotenv import load_dotenv
@@ -13,7 +14,7 @@ from color import Color
 
 def log(msg):
     f = open(outfile, 'a')
-    f.write(time.strftime('[%Y/%m/%d %H:%M:%S.%f] ') + msg + '\n')
+    f.write(datetime.now().strftime('[%Y/%m/%d %H:%M:%S.%f] ') + msg + '\n')
     f.close()
 
 
