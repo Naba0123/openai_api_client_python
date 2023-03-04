@@ -1,6 +1,7 @@
 import json
 import os
 import time
+import readline
 
 import openai
 from dotenv import load_dotenv
@@ -12,6 +13,7 @@ def log(msg):
     f.close()
 
 
+_ = readline  # unused but want to import
 load_dotenv()
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
@@ -27,6 +29,8 @@ messages = [
         'content': '日本語で返答してください。'
     },
 ]
+
+# main loop
 while True:
     print('> ', end='')
     try:
