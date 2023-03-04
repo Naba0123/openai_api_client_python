@@ -6,10 +6,17 @@
 - Chat in Japanese by default
 - The input and output will be written to a log file
 
+## Setup
+
+```bash
+make init
+sed -i -e "s/YOUR_API_KEY/{apikey}/g" .env
+```
+
 ## Usage
 
 ```bash
-python main.py --apikey=YOUR_API_KEY
+make up
 ```
 
 ## API KEY

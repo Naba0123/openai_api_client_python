@@ -1,9 +1,9 @@
-import argparse
 import json
 import os
 import time
 
 import openai
+from dotenv import load_dotenv
 
 
 def log(msg):
@@ -12,10 +12,9 @@ def log(msg):
     f.close()
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--apikey')
-args = parser.parse_args()
-openai.api_key = args.apikey
+load_dotenv()
+
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # create result dir
 outfile = 'res/' + time.strftime('%Y%m%d%H%M%S.log')
@@ -30,7 +29,10 @@ messages = [
 ]
 while True:
     print('> ', end='')
-    ipt = input().strip()
+    try:
+        ipt = input().strip()
+    except EOFError:
+        break
     if ipt == '':
         continue
     elif ipt == 'exit':
@@ -54,4 +56,4 @@ while True:
 
     log('AI > ' + res_msg)
 
-print('Program Exit. Bye.\n')
+print('\n--- Bye. ---\n')
