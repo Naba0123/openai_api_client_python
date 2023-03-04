@@ -18,7 +18,7 @@ sed -i -e "s/YOUR_API_KEY/{apikey}/g" .env
 ## Usage
 
 ```bash
-make up
+make
 ```
 
 ## API KEY
