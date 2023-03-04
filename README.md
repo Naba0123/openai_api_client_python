@@ -1,5 +1,7 @@
 # OpenAI API Client Python
 
+![image](https://user-images.githubusercontent.com/11944066/222868948-202eaebd-224f-4fa8-a17b-fd4e9cfccf69.png)
+
 ## Feature
 
 - Simple ChatGPT Client
