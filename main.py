@@ -1,16 +1,25 @@
 import json
+import math
 import os
+import sys
 import time
 import readline
 
 import openai
 from dotenv import load_dotenv
 
+from color import Color
+
 
 def log(msg):
     f = open(outfile, 'a')
-    f.write(time.strftime('[%Y/%m/%d %H:%M:%S] ') + msg + '\n')
+    f.write(time.strftime('[%Y/%m/%d %H:%M:%S.%f] ') + msg + '\n')
     f.close()
+
+
+def out(msg, cl=Color.COLOR_DEFAULT, end='\n'):
+    print(f'{cl}{msg}{Color.RESET}', end=end)
+    sys.stdout.flush()
 
 
 _ = readline  # unused but want to import
@@ -32,10 +41,10 @@ messages = [
 
 # main loop
 while True:
-    print('> ', end='')
+    out('--- You ---', Color.CYAN)
     try:
         ipt = input().strip()
-    except EOFError:
+    except (EOFError, KeyboardInterrupt):
         break
     if ipt == '':
         continue
@@ -47,17 +56,30 @@ while True:
             'content': ipt,
         },
     )
-
     log('You > ' + ipt)
 
+    out('AI thinking...', Color.MAGENTA, end='')
+
+    start_time = time.perf_counter()
     res = openai.ChatCompletion.create(
         model='gpt-3.5-turbo',
         messages=messages,
     )
+    end_time = time.perf_counter()
+
     log(json.dumps(res))
     res_msg = res['choices'][0]['message']['content']
-    print(res_msg)
 
+    print("\033[2K\033[G", end='')
+    out('--- AI --- ({}ms)'.format(math.ceil((end_time - start_time) * 1000)), Color.YELLOW)
+    out(res_msg, Color.YELLOW)
     log('AI > ' + res_msg)
 
-print('\n--- Bye. ---\n')
+    messages.append(
+        {
+            'role': 'assistant',
+            'content': res_msg,
+        },
+    )
+
+print('\nBye.')
